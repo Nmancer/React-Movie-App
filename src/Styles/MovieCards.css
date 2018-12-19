@@ -1,0 +1,131 @@
+.movie-cards {
+  margin: 0 auto;
+  width: 93%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  transition: all 1s linear;
+}
+
+.movie-card-item {
+  width: 342px;
+  height: 282px;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+
+  position: relative;
+  margin: 10px 5px 20px 5px;
+  overflow: hidden;
+}
+.movie-card-item .image-placeholder {
+  background: rgb(209, 209, 209);
+  width: 342px;
+  height: 281px;
+}
+.movie-card-item .text div {
+  background: rgb(209, 209, 209);
+  width: 270px;
+  height: 25px;
+  margin: 10px auto 0 auto;
+}
+.img-wrapper img {
+  object-fit: contain;
+  transition: all 1s ease;
+}
+.text-wrapper-top h2 {
+  transition: all 0.3s linear;
+}
+.movie-card-item:hover .text-wrapper-top h2 {
+  color: #3fc380;
+}
+.movie-card-item:hover img {
+  filter: brightness(30%);
+}
+
+.movie-card-item:hover .movie-overview {
+  opacity: 1;
+}
+.text-wrapper {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  bottom: 0;
+  width: 342px;
+  height: 90px;
+  background-color: rgb(255, 255, 255);
+  border-radius: 2px;
+}
+
+.text-wrapper-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  border-radius: 0 0 4px 4px;
+}
+.text-wrapper-bottom-rating p {
+  border: solid 2px #3fc380;
+
+  padding: 2px;
+}
+.text-wrapper-bottom-rating {
+  margin-bottom: 2px;
+}
+.text-wrapper p {
+  margin: 0 10px 0 10px;
+  color: rgb(47, 48, 48);
+  font-size: 16px;
+}
+.text-wrapper h2 {
+  margin-left: 10px;
+  color: rgb(37, 37, 37);
+  font-size: 20px;
+  font-weight: normal;
+}
+.movies-header {
+  width: 90%;
+  margin: 15px auto;
+}
+.movies-header h1 {
+  font-weight: normal;
+  font-size: 22px;
+  color: rgb(37, 37, 37);
+}
+.movie-overview {
+  margin: 15px;
+  position: absolute;
+  top: 40px;
+  opacity: 0;
+  color: #e6e6e6;
+}
+@media (max-width: 1280px) {
+  .movie-cards {
+    width: 100%;
+  }
+  .movies-header {
+    width: 100%;
+  }
+}
+
+.load-more {
+  margin: 15px;
+
+  display: flex;
+  justify-content: center;
+}
+button {
+  outline: none;
+  padding: 10px 20px;
+  color: rgb(29, 29, 29);
+  font-size: 20px;
+  background: none;
+  border: 2px solid #3fc380;
+  transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+button:hover {
+  outline: none;
+  background: #3fc380;
+  border: 2px solid #3fc380;
+  cursor: pointer;
+}

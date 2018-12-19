@@ -1,0 +1,30 @@
+.actor-info {
+  width: 100%;
+
+  background-color: rgb(36, 36, 36);
+}
+.actor-info-wrapper {
+  display: flex;
+  width: 80%;
+  margin: 0 auto;
+  padding: 50px;
+}
+.actor-info-right {
+  display: flex;
+  margin-left: 10px;
+  flex-direction: column;
+  color: rgb(230, 230, 230);
+}
+.actor-info-right h2 {
+  font-weight: normal;
+  font-size: 20px;
+}
+.actor-info-right span {
+  font-size: 20px;
+  color: rgb(202, 202, 202);
+}
+@media only screen and (max-width: 700px) {
+  .actor-info-wrapper {
+    flex-direction: column;
+  }
+}
