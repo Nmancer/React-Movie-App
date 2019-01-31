@@ -1,5 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import MyImage from "./LazyImages";
+
 const ActorsCard = props => {
   return (
     <div className="movie-gallery-row-wrapper">
@@ -21,7 +23,8 @@ const ActorsCard = props => {
                           : require("../../Images/notFoundActor.png")
                       }
                       alt=""
-                    />
+                    />{" "}
+                    <MyImage />
                     <h4>{actor.name}</h4>
                   </div>
                 </Link>

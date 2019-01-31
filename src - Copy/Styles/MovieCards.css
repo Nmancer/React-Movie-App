@@ -1,0 +1,123 @@
+.movie-cards {
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  width: 90%;
+  justify-content: center;
+}
+.movie-card-item {
+  display: inline-block;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  width: 300px;
+  margin: 0 10px 20px 10px;
+}
+.movie-card-item {
+  object-fit: contain;
+}
+.movie-card-item .image-placeholder {
+  background: rgb(209, 209, 209);
+}
+.movie-card-item .text {
+  background: rgb(209, 209, 209);
+
+  margin: 10px auto 0 auto;
+}
+.text-wrapper {
+  padding: 5px 5px 10px 5px;
+}
+.img-wrapper img {
+  object-fit: contain;
+  transition: all 1s ease;
+}
+
+.text-wrapper h2 {
+  color: #2ecc71;
+}
+.movie-card-item:hover img {
+  filter: brightness(25%);
+}
+
+.movie-card-item:hover .movie-overview {
+  display: block;
+  opacity: 1;
+}
+.movie-card-item:hover {
+  background-color: rgba(41, 41, 41, 0.404);
+}
+.text-wrapper p,
+h2 {
+  font-size: 17px;
+  color: rgb(236, 236, 236);
+}
+.text-wrapper p {
+  margin-top: 5px;
+}
+.movie-rating {
+  position: absolute;
+  right: 0;
+  color: black;
+  background: #2ecc71;
+  font-size: 18px;
+  padding: 5px;
+}
+
+.movies-header {
+  width: 80%;
+  margin: 15px auto;
+  display: flex;
+  justify-content: space-between;
+}
+.movies-header h1 {
+  font-weight: normal;
+  font-size: 22px;
+  color: rgb(214, 214, 214);
+}
+.movie-overview {
+  margin: 15px;
+  position: absolute;
+  top: 0px;
+  opacity: 0;
+  display: none;
+  color: #e6e6e6;
+}
+
+.load-more {
+  margin: 15px;
+
+  display: flex;
+  justify-content: center;
+}
+.load-more button {
+  outline: none;
+  padding: 10px 20px;
+  color: white;
+  font-size: 20px;
+  background: none;
+  border: 2px solid #2ecc71;
+  transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.load-more button:hover {
+  outline: none;
+  background: #2ecc71;
+  border: 2px solid #2ecc71;
+  cursor: pointer;
+  color: black;
+}
+@media (max-width: 1280px) {
+  .movie-cards {
+    width: 100%;
+  }
+}
+
+@media (max-width: 780px) {
+  .movie-card-item {
+    margin: 1px;
+  }
+
+  .movie-card-item:hover .movie-overview {
+    opacity: 0;
+    display: none;
+  }
+}

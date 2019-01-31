@@ -33,12 +33,12 @@
 }
 .movie-card-right h1,
 h3 {
-  color: #3fc380;
+  color: #2ecc71;
 }
 
 .movie-gallery-row {
   margin: 0 auto;
-  width: 100%;
+
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -73,7 +73,7 @@ h3 {
   margin: 0 auto;
 }
 
-@media only screen and (max-width: 1200px) {
+@media only screen and (max-width: 1280px) {
   .movie-card-container {
     width: 100%;
   }
@@ -81,7 +81,7 @@ h3 {
     width: 100%;
   }
 }
-@media only screen and (max-width: 700px) {
+@media only screen and (max-width: 780px) {
   .movie-card-container {
     flex-direction: column;
     justify-content: flex-start;

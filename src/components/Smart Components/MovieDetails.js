@@ -15,6 +15,7 @@ class MovieDetails extends Component {
   }
   render() {
     const loading = this.props.details;
+    console.log(this.props.page);
     return (
       <div>
         {loading ? <RenderMovieDetails details={this.props.details} /> : null}

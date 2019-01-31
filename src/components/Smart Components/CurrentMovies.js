@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { fetchCurrentMovies } from "../../actions";
 import RenderMovies from "../Dumb Components/RenderMovies";
-import DemoCarousel from "./DemoCarousel";
 
 class CurrentMovies extends Component {
   _isMounted = false;
@@ -12,7 +11,10 @@ class CurrentMovies extends Component {
     // this._isMounted = true;
   }
   componentDidUpdate(prevProps) {
-    if (this.props.filtering !== prevProps.filtering) {
+    if (
+      this.props.filtering !== prevProps.filtering ||
+      this.props.page !== prevProps.page
+    ) {
       this.props.fetchCurrentMovies(this.props.page, 1, this.props.filtering);
     }
   }
@@ -35,17 +37,18 @@ class CurrentMovies extends Component {
 
   render() {
     const loading = this.props.currentMovies.results ? true : false;
+
     return (
       <React.Fragment>
         {loading ? (
           <React.Fragment>
-            {this.props.page === "Filter" ? null : <DemoCarousel />}
             <RenderMovies
               page={this.props.page}
               movies={this.props.currentMovies.results}
               resultsPage={this.props.currentMovies.page}
               fetchMovies={this.props.fetchCurrentMovies}
               filtering={this.props.filtering}
+              total={this.props.currentMovies.total_results}
             />
           </React.Fragment>
         ) : null}

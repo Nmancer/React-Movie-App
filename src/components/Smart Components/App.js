@@ -6,13 +6,12 @@ import ScrollToTop from "./ScrollToTop";
 import {
   SideMenu,
   MovieDetails,
-  TopMovies,
-  PopularMovies,
-  UpcomingMovies,
   SearchPage,
-  ActorDetails
+  ActorDetails,
+  SearchResults
 } from "../LazyLoadingStuff";
 import "../../Styles/App.css";
+import Header from "./Header";
 
 class App extends React.Component {
   state = {};
@@ -28,24 +27,32 @@ class App extends React.Component {
       <BrowserRouter>
         <React.Fragment>
           <ScrollToTop>
-            <div id="outer-container">
-              <SideMenu />
-              <div
-                id="page-wrap"
-                className={this.props.burgerMenu.isOpen ? "burgerSlide" : null}
-              >
-                <Switch>
-                  <Route exact path="/" component={CurrentMovies} />
-                  <Route path="/top" component={TopMovies} />
-                  <Route path="/popular" component={PopularMovies} />
-                  <Route path="/upcoming" component={UpcomingMovies} />
-                  <Route path="/filter" component={SearchPage} />
-                  <Route path="/movies/:id" component={MovieDetails} />
-                  <Route path="/actors/:id" component={ActorDetails} />
-                  <Route component={CurrentMovies} />
-                </Switch>
-              </div>
-            </div>
+            <SideMenu />
+
+            <Header />
+
+            <Switch>
+              <Route exact path="/" component={CurrentMovies} />
+              <Route
+                path="/top"
+                render={props => <CurrentMovies {...props} page="Top rated" />}
+              />
+              <Route
+                path="/popular"
+                render={props => <CurrentMovies {...props} page="Popular" />}
+              />
+              <Route
+                path="/upcoming"
+                render={props => <CurrentMovies {...props} page="Upcoming" />}
+              />
+
+              <Route path="/filter" component={SearchPage} />
+              <Route path="/movies/:id" component={MovieDetails} />
+              <Route path="/actors/:id" component={ActorDetails} />
+              <Route path="/search/" component={SearchResults} />
+
+              <Route component={CurrentMovies} />
+            </Switch>
           </ScrollToTop>
         </React.Fragment>
       </BrowserRouter>
