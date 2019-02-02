@@ -1,13 +1,37 @@
 import React from "react";
+import styled from "styled-components";
+import { PrimaryColor, AccentColor } from "../../helpers/Theming";
 
-export default function LoadMoreButton(props) {
+const LoadMoreButton = props => {
   const { fetchMovies, page, resultsPage, filtering } = props;
   return (
-    <div className="load-more">
-      {" "}
-      <button onClick={() => fetchMovies(page, resultsPage + 1, filtering)}>
+    <LoadMore>
+      <Button onClick={() => fetchMovies(page, resultsPage + 1, filtering)}>
         Load More!
-      </button>
-    </div>
+      </Button>
+    </LoadMore>
   );
-}
+};
+const LoadMore = styled.div`
+  margin: 15px;
+  display: flex;
+  justify-content: center;
+`;
+
+const Button = styled.button`
+  outline: none;
+  padding: 10px 20px;
+  color: white;
+  font-size: 20px;
+  background: none;
+  border: 2px solid ${AccentColor};
+  transition: all 0.5s linear;
+  :hover {
+    outline: none;
+    background: ${AccentColor};
+    border: 2px solid ${AccentColor};
+    cursor: pointer;
+    color: ${PrimaryColor};
+  }
+`;
+export default LoadMoreButton;

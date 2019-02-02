@@ -1,5 +1,10 @@
 import React from "react";
-import "../../Styles/ActorInfo.css";
+import styled from "styled-components";
+import {
+  PrimaryColor,
+  AccentColor,
+  TertiaryColor
+} from "../../helpers/Theming";
 const ActorInfo = props => {
   const {
     biography,
@@ -10,9 +15,9 @@ const ActorInfo = props => {
     profile_path
   } = props;
   return (
-    <div className="actor__info content">
-      <div className="actor__info-wrapper">
-        <div className="actor__info-left">
+    <ActorWrapper>
+      <Actor>
+        <div>
           <img
             src={
               profile_path
@@ -22,32 +27,65 @@ const ActorInfo = props => {
             alt={name}
           />
         </div>
-        <div className="actor__info-right">
-          {name ? <h1>{name}</h1> : null}
+        <ActorRight>
+          {name ? <ActorHeadingBig>{name}</ActorHeadingBig> : null}
           {birthday ? (
-            <h2>
-              <span> Birthday:</span> {birthday} ({place_of_birth})
-            </h2>
+            <ActorHeadingSmall>
+              Birthday: {birthday} ({place_of_birth})
+            </ActorHeadingSmall>
+          ) : null}
+          {deathday ? (
+            <ActorHeadingSmall>
+              Died:
+              {deathday}
+            </ActorHeadingSmall>
           ) : null}
 
-          {deathday ? (
-            <h2>
-              <span> Died:</span>
-              {deathday}
-            </h2>
+          {biography ? (
+            <p>
+              {" "}
+              <span>Biography:</span>
+              {biography}
+            </p>
           ) : null}
-          <div>
-            {biography ? (
-              <p>
-                {" "}
-                <span>Biography:</span>
-                {biography}
-              </p>
-            ) : null}
-          </div>
-        </div>
-      </div>
-    </div>
+        </ActorRight>
+      </Actor>
+    </ActorWrapper>
   );
 };
+
+const ActorWrapper = styled.div`
+  width: 100%;
+  margin-top: 60px;
+  background-color: ${PrimaryColor};
+`;
+const Actor = styled.div`
+  display: flex;
+  width: 60%;
+  margin: 0 auto;
+  padding: 50px;
+  @media (max-width: 1280px) {
+    margin-top: 90px;
+    padding: 0;
+    width: 80%;
+  }
+  @media (max-width: 780px) {
+    width: 100%;
+  }
+  @media (max-width: 480px) {
+    flex-direction: column;
+  }
+`;
+
+const ActorRight = styled.div`
+  margin-left: 5px;
+  color: ${TertiaryColor};
+`;
+const ActorHeadingBig = styled.h1`
+  color: ${AccentColor};
+`;
+const ActorHeadingSmall = styled.h2`
+  font-weight: normal;
+  font-size: 20px;
+`;
 export default ActorInfo;

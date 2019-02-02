@@ -1,8 +1,9 @@
 import React from "react";
-import "../../Styles/MovieDetails.css";
 
 import ActorsCard from "./ActorsCard";
 import RenderMovies from "./RenderMovies";
+import styled from "styled-components";
+import { AccentColor } from "../../helpers/Theming";
 const formatter = new Intl.NumberFormat("en-US", {
   style: "currency",
   currency: "USD",
@@ -26,78 +27,128 @@ const RenderMovieDetails = props => {
     vote_average,
     revenue
   } = details;
-  const bgImage = backdrop_path
-    ? `url(https://image.tmdb.org/t/p/original${backdrop_path})`
-    : require("../../Images/notFound.png");
+
   return (
-    <div className="movie-details content">
+    <MovieDetails>
       <React.Fragment>
-        <div
-          className="movie-card"
-          style={{
-            backgroundImage: bgImage
-          }}
+        <MovieCardWrapper
+          bg={`https://image.tmdb.org/t/p/original${backdrop_path}`}
         >
-          <div className="movie-card-container">
-            <div className="movie-card-left">
+          <MovieCard>
+            <MoviePoster>
               <img
                 src={
                   poster_path
                     ? `https://image.tmdb.org/t/p/w300${poster_path}`
-                    : require("../../Images/notFound.png")
+                    : require("../../Images/notFoundActor.png")
                 }
                 alt=""
               />
-            </div>
-            <div className="movie-card-right">
-              <h1>{title}</h1>
-              <h2>{tagline}</h2>
-              <h3>
+            </MoviePoster>
+            <MovieInfo>
+              <MovieHeadingBigColored>{title}</MovieHeadingBigColored>
+              <MovieHeadingBig>{tagline}</MovieHeadingBig>
+              <MovieHeadingBig>
                 {genres
                   ? genres.map(genre => {
                       return genre.name + " ";
                     })
                   : null}
-              </h3>
-              <p> {overview}</p>
-              <h4>
-                <span className="movie-card-left-left">Date: </span>
+              </MovieHeadingBig>
+              <MovieInfoFadedText> {overview}</MovieInfoFadedText>
+              <MovieHeadingMedium>
+                <MovieInfoFadedText>Date: </MovieInfoFadedText>
                 {release_date}
-              </h4>
-              <h4>
-                <span className="movie-card-left-left">Runtime: </span>{" "}
-                {runtime} mins
-              </h4>
-              <h4>
-                <span className="movie-card-left-left">Studio: </span>
+              </MovieHeadingMedium>
+              <MovieHeadingMedium>
+                <MovieInfoFadedText>Runtime: </MovieInfoFadedText> {runtime}{" "}
+                mins
+              </MovieHeadingMedium>
+              <MovieHeadingMedium>
+                <MovieInfoFadedText>Studio: </MovieInfoFadedText>
                 {production_companies && production_companies[0]
                   ? production_companies[0].name
                   : null}
-              </h4>
-              <h4>
-                <span className="movie-card-left-left">Director: </span>
+              </MovieHeadingMedium>
+              <MovieHeadingMedium>
+                <MovieInfoFadedText>Director: </MovieInfoFadedText>
                 {credits && credits.crew[0] ? credits.crew[0].name : null}
-              </h4>
-              <h4>
-                <span className="movie-card-left-left">Rating: </span>
+              </MovieHeadingMedium>
+              <MovieHeadingMedium>
+                <MovieInfoFadedText>Rating: </MovieInfoFadedText>
                 {vote_average}
-              </h4>
-              <h4>
-                <span className="movie-card-left-left">Revenue: </span>
+              </MovieHeadingMedium>
+              <MovieHeadingMedium>
+                <MovieInfoFadedText>Revenue: </MovieInfoFadedText>
                 {formatter.format(revenue)}
-              </h4>
-            </div>
-          </div>
-        </div>
+              </MovieHeadingMedium>
+            </MovieInfo>
+          </MovieCard>
+        </MovieCardWrapper>
       </React.Fragment>
-      <div className="actors-recommendations">
+      <React.Fragment>
         <ActorsCard credits={credits} />
 
         {recommendations ? (
           <RenderMovies page="Similar" movies={recommendations.results} />
         ) : null}
-      </div>
-    </div>
+      </React.Fragment>
+    </MovieDetails>
   );
 };
+const MoviePoster = styled.div`
+  img {
+    border-radius: 5px;
+    margin: 20px 20px 0 0;
+  }
+`;
+const MovieDetails = styled.div`
+  margin-top: 90px;
+`;
+const MovieCard = styled.div`
+  width: 60%;
+  margin: 0 auto;
+  height: 500px;
+  display: flex;
+  justify-content: center;
+  color: white;
+  @media (max-width: 1280px) {
+    width: 100%;
+  }
+  @media (max-width: 780px) {
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    height: 1000px;
+  }
+`;
+const MovieCardWrapper = styled.div`
+  background-size: cover;
+  background-color: rgba(0, 0, 0, 0.849);
+  background-blend-mode: darken;
+  display: flex;
+  flex-direction: column;
+  background-image: ${props => `url(${props.bg})`};
+`;
+const MovieHeadingBig = styled.h2`
+  color: white;
+`;
+const MovieHeadingBigColored = styled(MovieHeadingBig)`
+  color: ${AccentColor};
+`;
+const MovieHeadingMedium = styled.h4`
+  font-weight: normal;
+  font-size: 16px;
+`;
+const MovieInfo = styled.div`
+  margin-top: 20px;
+  display: flex;
+  align-self: flex-start;
+  flex-direction: column;
+`;
+const MovieInfoFadedText = styled.span`
+  font-weight: normal;
+  color: #d8d5d5;
+  font-size: 16px;
+`;
 export default RenderMovieDetails;

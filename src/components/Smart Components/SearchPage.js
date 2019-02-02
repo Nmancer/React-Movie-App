@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import Select from "react-select";
 import { withRouter } from "react-router-dom";
 import CurrentMovies from "./CurrentMovies";
-import "../../Styles/SearchPage.css";
+import styled from "styled-components";
+
 const genreOptions = [
   { value: 28, label: "Action " },
   { value: 12, label: "Adventure " },
@@ -94,10 +95,10 @@ class SearchPage extends Component {
 
   render() {
     return (
-      <div>
-        <div className="search-page">
-          <div className="search-page-item">
-            <label>
+      <React.Fragment>
+        <SearchPageWrapper>
+          <SearchPageItem>
+            <SearchPageLabel>
               Genres:
               <Select
                 value={this.state.genre}
@@ -105,59 +106,59 @@ class SearchPage extends Component {
                 options={genreOptions}
                 isMulti={true}
               />
-            </label>
-          </div>
-          <div className="search-page-item">
-            <label>
+            </SearchPageLabel>
+          </SearchPageItem>
+          <SearchPageItem>
+            <SearchPageLabel>
               Rating More Than:
               <Select
                 value={this.state.ratingGreaterThan}
                 onChange={this.handleRatingGreaterThan}
                 options={ratingGreaterOptions}
               />
-            </label>
-          </div>{" "}
-          <div className="search-page-item">
-            <label>
+            </SearchPageLabel>
+          </SearchPageItem>{" "}
+          <SearchPageItem>
+            <SearchPageLabel>
               Rating Less Than:
               <Select
                 value={this.state.ratingLessThan}
                 onChange={this.handleRatingLessThan}
                 options={ratingLessOptions}
               />
-            </label>
-          </div>{" "}
-          <div className="search-page-item">
-            <label>
+            </SearchPageLabel>
+          </SearchPageItem>{" "}
+          <SearchPageItem>
+            <SearchPageLabel>
               Sort
               <Select
                 value={this.state.sort}
                 onChange={this.handleSort}
                 options={sortOptions}
               />
-            </label>
-          </div>{" "}
-          <div className="search-page-item">
-            <label>
+            </SearchPageLabel>
+          </SearchPageItem>{" "}
+          <SearchPageItem>
+            <SearchPageLabel>
               From
-              <input
+              <SearchPageInput
                 type="number"
                 value={this.state.yearStart}
                 onChange={this.handleYearStart}
               />
-            </label>
-          </div>{" "}
-          <div className="search-page-item">
-            <label>
+            </SearchPageLabel>
+          </SearchPageItem>{" "}
+          <SearchPageItem>
+            <SearchPageLabel>
               To
-              <input
+              <SearchPageInput
                 type="number"
                 value={this.state.yearEnd}
                 onChange={this.handleYearEnd}
               />
-            </label>
-          </div>
-        </div>
+            </SearchPageLabel>
+          </SearchPageItem>
+        </SearchPageWrapper>
         <CurrentMovies
           page="Filter"
           filtering={{
@@ -169,9 +170,50 @@ class SearchPage extends Component {
             genres: this.state.genres
           }}
         />
-      </div>
+      </React.Fragment>
     );
   }
 }
+const SearchPageWrapper = styled.div`
+  background: white;
+  color: black;
+  margin: 90px auto 0px auto;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+`;
+const SearchPageLabel = styled.label`
+  color: black;
+`;
+
+const SearchPageItem = styled.div`
+  color: black;
+  width: 150px;
+  margin: 5px;
+  :first-child {
+    width: 300px;
+  }
+`;
+const SearchPageInput = styled.input`
+  background-color: hsl(0, 0%, 100%);
+  border-color: hsl(0, 0%, 80%);
+  border-radius: 4px;
+  border-style: solid;
+  border-width: 1px;
+  cursor: default;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  height: 37px;
+  outline: 0;
+  position: relative;
+  transition: all 100ms;
+  box-sizing: border-box;
+  padding: 15px 0 15px 0;
+  width: 150px;
+  font-size: 16px;
+`;
 
 export default withRouter(SearchPage);

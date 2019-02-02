@@ -7,18 +7,17 @@ class MovieDetails extends Component {
   componentDidMount() {
     this.props.fetchMovieDetails(this.props.match.params.id);
   }
-
   componentDidUpdate(prevProps) {
     if (this.props.match.params.id !== prevProps.match.params.id) {
       this.props.fetchMovieDetails(this.props.match.params.id);
     }
   }
   render() {
-    const loading = this.props.details;
-    console.log(this.props.page);
     return (
       <div>
-        {loading ? <RenderMovieDetails details={this.props.details} /> : null}
+        {this.props.details ? (
+          <RenderMovieDetails details={this.props.details} />
+        ) : null}
       </div>
     );
   }

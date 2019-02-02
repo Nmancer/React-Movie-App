@@ -19,6 +19,7 @@ class CurrentMovies extends Component {
     }
   }
   // componentWillUnmount() {
+  // //infinite scroll kinda wonky tho
   //   window.removeEventListener("scroll", this.handleScrolling);
   //   this._isMounted = false;
   // }
@@ -36,11 +37,9 @@ class CurrentMovies extends Component {
   // };
 
   render() {
-    const loading = this.props.currentMovies.results ? true : false;
-
     return (
       <React.Fragment>
-        {loading ? (
+        {this.props.currentMovies.results ? (
           <React.Fragment>
             <RenderMovies
               page={this.props.page}
