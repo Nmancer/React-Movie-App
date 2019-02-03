@@ -1,9 +1,7 @@
 import React from "react";
-
-import ActorsCard from "./ActorsCard";
-import RenderMovies from "./RenderMovies";
 import styled from "styled-components";
 import { AccentColor } from "../../helpers/Theming";
+import Carousel from "./Carousel";
 const formatter = new Intl.NumberFormat("en-US", {
   style: "currency",
   currency: "USD",
@@ -87,10 +85,15 @@ const RenderMovieDetails = props => {
         </MovieCardWrapper>
       </React.Fragment>
       <React.Fragment>
-        <ActorsCard credits={credits} />
+        {credits ? (
+          <Carousel items={credits.cast} headingText="Actors" />
+        ) : null}
 
         {recommendations ? (
-          <RenderMovies page="Similar" movies={recommendations.results} />
+          <Carousel
+            items={recommendations.results}
+            headingText="Similar Movies"
+          />
         ) : null}
       </React.Fragment>
     </MovieDetails>

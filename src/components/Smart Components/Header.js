@@ -114,8 +114,6 @@ const HeaderNav = styled(NavLink)`
   &.active {
     color: ${AccentColor};
     border-bottom: 3px solid ${AccentColor};
-    padding-bottom: 30px;
-    margin-top: 33px;
   }
 
   @media (max-width: 960px) {

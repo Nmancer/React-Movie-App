@@ -29,7 +29,7 @@ class App extends React.Component {
               <SideMenu />
               <Header />
               <Switch>
-                <Route exact path="/" component={CurrentMovies} />
+                <Route exact={true} path="/" component={CurrentMovies} />
                 <Route
                   path="/top"
                   render={props => (

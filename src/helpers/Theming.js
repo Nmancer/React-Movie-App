@@ -1,4 +1,5 @@
 import theme from "styled-theming";
+
 const Colors = {
   PrimaryDark: "#000",
   SecondaryDark: "#18171d",
