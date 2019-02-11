@@ -60,12 +60,7 @@ export const fetchSearchResults = query => async dispatch => {
   });
   dispatch({ type: "FETCH_SEARCH", payload: res.data.results });
 };
-export const changeTheme = () => {
-  return { type: `CHANGE_THEME` };
-};
-export const changeAccent = color => {
-  return { type: `CHANGE_ACCENT`, color: color };
-};
+
 export const fetchActorDetails = id => async dispatch => {
   const res = await MovieDB.get(`person/${id}`, {
     params: { api_key: API_KEY, append_to_response: "movie_credits" }

@@ -7,24 +7,24 @@ import { FaCalendarAlt } from "react-icons/fa";
 import { FaRegHeart } from "react-icons/fa";
 import { slide as Menu } from "react-burger-menu";
 import styled from "styled-components";
-
+import Search from "../Smart Components/Search";
 import {
   PrimaryColor,
   SecondaryColor,
   AccentColor
 } from "../../helpers/Theming";
+import ThemeChanger from "./ThemeChanger";
 
-const SideMenu = () => {
+const SideMenu = ({ changeAccent, changeMode }) => {
   return (
     <StyledBurgerMenu>
       <Menu
         pageWrapId={"page-wrap"}
         outerContainerId={"outer-container"}
         noOverlay={true}
-        width={"220px"}
+        width={"330px"}
       >
         <BurgerLogo to="/">TMDB</BurgerLogo>
-
         <NavLink to="/top">
           <FaRegHeart />
           TOP RATED
@@ -40,19 +40,19 @@ const SideMenu = () => {
           <FaFilter />
           FILTER
         </NavLink>
+
+        <Search />
+
+        <ThemeChanger changeMode={changeMode} changeAccent={changeAccent} />
       </Menu>
     </StyledBurgerMenu>
   );
 };
 const BurgerLogo = styled(Link)`
-  font-size: 44px;
+  font-size: 32px;
   font-weight: bold;
-  padding: 5px;
 
-  color: ${AccentColor};
-  :hover {
-    transform: scale(1.2);
-  }
+  margin-bottom: 20px;
 `;
 const StyledBurgerMenu = styled.div`
   .bm-burger-button {
@@ -60,7 +60,7 @@ const StyledBurgerMenu = styled.div`
     position: fixed;
     width: 36px;
     height: 30px;
-    left: 30px;
+    left: 20px;
     top: 30px;
     @media (max-width: 960px) {
       display: inline-block;
@@ -92,13 +92,14 @@ const StyledBurgerMenu = styled.div`
 
   .bm-item-list {
     padding-top: 100px;
+    display: block;
   }
   .bm-item-list svg {
     margin-right: 1px;
   }
   .bm-item {
     color: ${SecondaryColor};
-    padding-left: 25px;
+    padding-left: 85px;
     padding-bottom: 20px;
     width: 100%;
   }

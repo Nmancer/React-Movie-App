@@ -11,34 +11,6 @@ const getSuggestionValue = suggestion => {
   return suggestion.title;
 };
 
-const renderSuggestion = suggestion => {
-  return (
-    <Link to={`/movies/${suggestion.id}`} key={suggestion.id}>
-      <SuggestionResult>
-        <img
-          src={`https://image.tmdb.org/t/p/w45/${suggestion.poster_path}`}
-          alt={""}
-        />
-        <div>
-          <SearchTitle>
-            {suggestion.title} ({suggestion.release_date.slice(0, 4)})
-          </SearchTitle>
-          <p>
-            {suggestion.overview.length > 100
-              ? suggestion.overview.slice(0, 97) + " ..."
-              : suggestion.overview}
-          </p>
-        </div>
-      </SuggestionResult>{" "}
-    </Link>
-  );
-};
-const renderInputComponent = inputProps => (
-  <div className="inputContainer">
-    <FaSistrix className="icon" />
-    <input {...inputProps} />
-  </div>
-);
 class Search extends React.Component {
   state = {
     value: "",
@@ -87,7 +59,7 @@ class Search extends React.Component {
   render() {
     const { value, suggestions } = this.state;
     const inputProps = {
-      placeholder: "Search Movies",
+      placeholder: "search",
       value,
       onChange: this.onChange,
       onKeyPress: this.onKeyPress
@@ -114,12 +86,41 @@ const mapStateToProps = state => {
   return { searchResults: state.searchResults };
 };
 
+const renderSuggestion = suggestion => {
+  return (
+    <Link to={`/movies/${suggestion.id}`} key={suggestion.id}>
+      <SuggestionResult>
+        <img
+          src={`https://image.tmdb.org/t/p/w45/${suggestion.poster_path}`}
+          alt={""}
+        />
+        <div>
+          <SearchTitle>
+            {suggestion.title} ({suggestion.release_date.slice(0, 4)})
+          </SearchTitle>
+          <p>
+            {suggestion.overview.length > 100
+              ? suggestion.overview.slice(0, 97) + " ..."
+              : suggestion.overview}
+          </p>
+        </div>
+      </SuggestionResult>{" "}
+    </Link>
+  );
+};
+const renderInputComponent = inputProps => (
+  <div className="inputContainer">
+    <FaSistrix className="icon" />
+    <input {...inputProps} />
+  </div>
+);
+
 const StyledAutoSuggest = styled.div`
   .react-autosuggest__input {
-    margin-left: 12px;
-    width: 210px;
+    margin-left: 32px;
+    width: 230px;
     height: 18px;
-    padding: 10px 20px 10px 45px;
+    padding: 20px 20px 20px 45px;
     background: #eee;
     border: 1px solid rgba(255, 255, 255, 0);
     font-size: 16px;
@@ -137,8 +138,7 @@ const StyledAutoSuggest = styled.div`
     display: block;
     position: absolute;
     top: 45px;
-    width: 275px;
-    margin-left: 13px;
+    width: 295px;
     font-size: 12px;
     border-radius: 4px;
     z-index: 5;
@@ -169,10 +169,10 @@ const StyledAutoSuggest = styled.div`
   .icon {
     color: rgb(94, 94, 94);
     position: absolute;
-    top: 10px;
-    left: 32px;
-    width: 20px;
-    height: 20px;
+    top: 12px;
+    left: 48px;
+    width: 16px;
+    height: 16px;
   }
   .react-autosuggest__suggestion--highlighted {
     background-color: rgb(218, 218, 218);

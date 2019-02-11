@@ -5,18 +5,20 @@ const Colors = {
   SecondaryDark: "#18171d",
   TertiaryDark: "#232027",
   PrimaryLight: "#fff",
-  SecondaryLight: "#d6d6d6",
+  SecondaryLight: "#f6f6f6",
   TertiaryLight: "#e8e8e8",
   BackgroundDark: "#18171d",
   BackgroundLight: "#ededed",
-  Green: "",
-  Blue: "",
-  Red: ""
+  Green: "#2ecc71",
+  Blue: "#a537fd",
+  Red: "#f03434",
+  Orange: "#f89406"
 };
 export const AccentColor = theme("accent", {
-  red: "#f03434",
-  green: "#2ecc71",
-  blue: "#a537fd"
+  red: Colors.Red,
+  green: Colors.Green,
+  blue: Colors.Blue,
+  orange: Colors.Orange
 });
 
 export const PrimaryColor = theme("mode", {

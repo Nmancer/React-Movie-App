@@ -1,7 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 import { AccentColor } from "../../helpers/Theming";
-import Carousel from "./Carousel";
+
+import RenderMovies from "./RenderMovies";
+import ActorsCard from "./ActorsCard";
 const formatter = new Intl.NumberFormat("en-US", {
   style: "currency",
   currency: "USD",
@@ -9,7 +11,6 @@ const formatter = new Intl.NumberFormat("en-US", {
 });
 
 const RenderMovieDetails = props => {
-  const details = props.details;
   const {
     backdrop_path,
     poster_path,
@@ -24,85 +25,115 @@ const RenderMovieDetails = props => {
     tagline,
     vote_average,
     revenue
-  } = details;
+  } = props.details;
 
   return (
-    <MovieDetails>
-      <React.Fragment>
-        <MovieCardWrapper
-          bg={`https://image.tmdb.org/t/p/original${backdrop_path}`}
-        >
-          <MovieCard>
-            <MoviePoster>
-              <img
-                src={
-                  poster_path
-                    ? `https://image.tmdb.org/t/p/w300${poster_path}`
-                    : require("../../Images/notFoundActor.png")
-                }
-                alt=""
-              />
-            </MoviePoster>
-            <MovieInfo>
-              <MovieHeadingBigColored>{title}</MovieHeadingBigColored>
-              <MovieHeadingBig>{tagline}</MovieHeadingBig>
-              <MovieHeadingBig>
-                {genres
-                  ? genres.map(genre => {
-                      return genre.name + " ";
-                    })
-                  : null}
-              </MovieHeadingBig>
-              <MovieInfoFadedText> {overview}</MovieInfoFadedText>
-              <MovieHeadingMedium>
-                <MovieInfoFadedText>Date: </MovieInfoFadedText>
-                {release_date}
-              </MovieHeadingMedium>
-              <MovieHeadingMedium>
-                <MovieInfoFadedText>Runtime: </MovieInfoFadedText> {runtime}{" "}
-                mins
-              </MovieHeadingMedium>
-              <MovieHeadingMedium>
-                <MovieInfoFadedText>Studio: </MovieInfoFadedText>
-                {production_companies && production_companies[0]
-                  ? production_companies[0].name
-                  : null}
-              </MovieHeadingMedium>
-              <MovieHeadingMedium>
-                <MovieInfoFadedText>Director: </MovieInfoFadedText>
-                {credits && credits.crew[0] ? credits.crew[0].name : null}
-              </MovieHeadingMedium>
-              <MovieHeadingMedium>
-                <MovieInfoFadedText>Rating: </MovieInfoFadedText>
-                {vote_average}
-              </MovieHeadingMedium>
-              <MovieHeadingMedium>
-                <MovieInfoFadedText>Revenue: </MovieInfoFadedText>
-                {formatter.format(revenue)}
-              </MovieHeadingMedium>
-            </MovieInfo>
-          </MovieCard>
-        </MovieCardWrapper>
-      </React.Fragment>
-      <React.Fragment>
-        {credits ? (
-          <Carousel items={credits.cast} headingText="Actors" />
-        ) : null}
+    <>
+      {props.loading ? (
+        <MovieDetails>
+          <>
+            <MovieCardWrapper>
+              <MovieCard>
+                <MoviePoster />
+                <PlaceholderInfo>
+                  <PlaceholderInfoText />
+                  <PlaceholderInfoText />
+                  <PlaceholderInfoText />
+                  <PlaceholderInfoText />
+                  <PlaceholderInfoText />
+                  <PlaceholderInfoText />
+                  <PlaceholderInfoText />
+                  <PlaceholderInfoText />
+                </PlaceholderInfo>
+              </MovieCard>
+            </MovieCardWrapper>
+          </>
+        </MovieDetails>
+      ) : (
+        <MovieDetails>
+          <>
+            <MovieCardWrapper
+              bg={
+                backdrop_path
+                  ? `https://image.tmdb.org/t/p/original${backdrop_path}`
+                  : null
+              }
+            >
+              <MovieCard>
+                <MoviePoster>
+                  <img
+                    src={
+                      poster_path
+                        ? `https://image.tmdb.org/t/p/w300${poster_path}`
+                        : require("../../Images/notFoundActor.png")
+                    }
+                    alt=""
+                  />
+                </MoviePoster>
+                <MovieInfo>
+                  <MovieHeadingBigColored>{title}</MovieHeadingBigColored>
+                  <MovieHeadingBig>{tagline}</MovieHeadingBig>
+                  <MovieHeadingBig>
+                    {genres
+                      ? genres.map(genre => {
+                          return genre.name + " ";
+                        })
+                      : null}
+                  </MovieHeadingBig>
+                  <MovieInfoFadedText> {overview}</MovieInfoFadedText>
+                  <MovieHeadingMedium>
+                    <MovieInfoFadedText>Date: </MovieInfoFadedText>
+                    {release_date}
+                  </MovieHeadingMedium>
+                  <MovieHeadingMedium>
+                    <MovieInfoFadedText>Runtime: </MovieInfoFadedText> {runtime}{" "}
+                    mins
+                  </MovieHeadingMedium>
+                  <MovieHeadingMedium>
+                    <MovieInfoFadedText>Studio: </MovieInfoFadedText>
+                    {production_companies && production_companies[0]
+                      ? production_companies[0].name
+                      : null}
+                  </MovieHeadingMedium>
+                  <MovieHeadingMedium>
+                    <MovieInfoFadedText>Director: </MovieInfoFadedText>
+                    {credits && credits.crew[0] ? credits.crew[0].name : null}
+                  </MovieHeadingMedium>
+                  <MovieHeadingMedium>
+                    <MovieInfoFadedText>Rating: </MovieInfoFadedText>
+                    {vote_average}
+                  </MovieHeadingMedium>
+                  <MovieHeadingMedium>
+                    <MovieInfoFadedText>Revenue: </MovieInfoFadedText>
+                    {formatter.format(revenue)}
+                  </MovieHeadingMedium>
+                </MovieInfo>
+              </MovieCard>
+            </MovieCardWrapper>
+          </>
 
-        {recommendations ? (
-          <Carousel
-            items={recommendations.results}
-            headingText="Similar Movies"
-          />
-        ) : null}
-      </React.Fragment>
-    </MovieDetails>
+          {credits && recommendations.results ? (
+            <ActorsCard credits={credits} loading={props.loading} />
+          ) : null}
+          {recommendations && recommendations.results ? (
+            <RenderMovies
+              page="Similar"
+              movies={recommendations.results.slice(0, 8)}
+            />
+          ) : null}
+        </MovieDetails>
+      )}
+    </>
   );
 };
 const MoviePoster = styled.div`
+  width: 300px;
+  height: 450px;
+  margin: 20px 20px 0 0;
+  background-color: #f2f2f2;
+  border-radius: 5px;
   img {
     border-radius: 5px;
-    margin: 20px 20px 0 0;
   }
 `;
 const MovieDetails = styled.div`
@@ -125,6 +156,36 @@ const MovieCard = styled.div`
     height: 1000px;
   }
 `;
+const PlaceholderInfoText = styled.div`
+  height: 15px;
+  width: 95%;
+  background-color: #f2f2f2;
+  margin: 5px;
+`;
+const PlaceholderInfo = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: 300px;
+  width: 80%;
+  margin-top: 20px;
+  ${PlaceholderInfoText}:nth-child(1) {
+    width: 20%;
+    background-color: ${AccentColor};
+  }
+  ${PlaceholderInfoText}:nth-child(2n) {
+    width: 90%;
+  }
+  ${PlaceholderInfoText}:nth-child(3n) {
+    width: 85%;
+  }
+  ${PlaceholderInfoText}:nth-child(4n) {
+    width: 80%;
+  }
+  ${PlaceholderInfoText}:nth-child(5n) {
+    width: 75%;
+  }
+`;
+
 const MovieCardWrapper = styled.div`
   background-size: cover;
   background-color: rgba(0, 0, 0, 0.849);

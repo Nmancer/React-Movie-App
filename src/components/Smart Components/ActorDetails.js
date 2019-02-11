@@ -9,9 +9,9 @@ class ActorDetails extends Component {
   }
   render() {
     return (
-      <React.Fragment>
-        {this.props.actorDetails.movie_credits ? (
-          <React.Fragment>
+      <>
+        {this.props.actorDetails.movie_credits && (
+          <>
             <ActorInfo
               biography={this.props.actorDetails.biography}
               birthday={this.props.actorDetails.birthday}
@@ -21,12 +21,12 @@ class ActorDetails extends Component {
               profile_path={this.props.actorDetails.profile_path}
             />
             <RenderMovies
-              page={this.props.actorDetails.name}
+              page="Actor"
               movies={this.props.actorDetails.movie_credits.cast}
             />
-          </React.Fragment>
-        ) : null}
-      </React.Fragment>
+          </>
+        )}
+      </>
     );
   }
 }
