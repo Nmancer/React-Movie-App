@@ -9,7 +9,7 @@ const ThemeChanger = ({ changeMode, changeAccent }) => {
       <Circle color="#f03434" onClick={() => changeAccent("red")} />
       <Circle color="#2ecc71" onClick={() => changeAccent("green")} />
       <Circle color="#a537fd" onClick={() => changeAccent("blue")} />
-      <Circle color="#f89406" onClick={() => changeAccent("orange")} />
+      <Circle color="#f9690e" onClick={() => changeAccent("orange")} />
     </ThemingWrapper>
   );
 };

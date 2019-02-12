@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
 import {
-  PrimaryColor,
+  QuaternaryColor,
   SecondaryColor,
   AccentColor
 } from "../../helpers/Theming";
@@ -18,7 +18,7 @@ const MovieCard = ({ movie }) => {
             <LazyLoadImage
               src={
                 movie.backdrop_path
-                  ? `https://image.tmdb.org/t/p/w300/${movie.backdrop_path}`
+                  ? `https://image.tmdb.org/t/p/w342/${movie.backdrop_path}`
                   : require("../../Images/notFound.png")
               }
               alt={movie.title}
@@ -57,10 +57,10 @@ const MovieCard = ({ movie }) => {
 
 const MovieImageWrapper = styled.div`
   min-width: 300px;
-  min-height: 150px;
+  min-height: 170px;
+
   img {
-    border-radius: 2px;
-    object-fit: contain;
+    width: 300px;
     @media (max-width: 780px) {
       width: 220px;
     }
@@ -81,10 +81,9 @@ const MovieCardsItem = styled.div`
   position: relative;
   margin: 10px 6px;
   max-width: 300px;
-  border-radius: 2px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+
   transition: all 0.5s;
-  background-color: ${PrimaryColor};
+  background-color: ${QuaternaryColor};
   :hover img {
     filter: brightness(25%);
   }
@@ -92,9 +91,7 @@ const MovieCardsItem = styled.div`
     display: block;
     opacity: 1;
   }
-  :hover {
-    box-shadow: 0 1px 3px ${AccentColor}, 0 1px 2px ${AccentColor};
-  }
+
   @media (max-width: 780px) {
     max-width: 220px;
   }

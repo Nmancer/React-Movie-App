@@ -3,11 +3,11 @@ export default (state = [], action) => {
     if (action.payload.page === 1) {
       return action.payload;
     }
-    const newState = {
-      ...action.payload,
-      results: state.results.concat(action.payload.results)
+
+    return {
+      page: action.payload.page,
+      results: [...state.results, ...action.payload.results]
     };
-    return newState;
   }
 
   return state;

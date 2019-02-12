@@ -1,6 +1,5 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import LoadMoreButton from "./LoadMoreButton";
 import styled from "styled-components";
 import { SecondaryColor } from "../../helpers/Theming";
 import MovieCard from "./MovieCard";
@@ -33,17 +32,6 @@ const RenderMovies = props => {
             );
           })}
         </MovieCards>
-      )}
-
-      {props.page === "Similar" ||
-      props.page === "Found" ||
-      props.page === "Actor" ? null : (
-        <LoadMoreButton
-          fetchMovies={props.fetchMovies}
-          page={props.page}
-          resultsPage={props.resultsPage}
-          filtering={props.filtering}
-        />
       )}
     </MovieCardsWrapper>
   );

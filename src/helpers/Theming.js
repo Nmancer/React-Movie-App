@@ -7,12 +7,14 @@ const Colors = {
   PrimaryLight: "#fff",
   SecondaryLight: "#f6f6f6",
   TertiaryLight: "#e8e8e8",
+  QuaternaryDark: "#4a4951",
+  QuaternaryLight: "#f2f2f2",
   BackgroundDark: "#18171d",
-  BackgroundLight: "#ededed",
+  BackgroundLight: "#e8e8e8",
   Green: "#2ecc71",
   Blue: "#a537fd",
   Red: "#f03434",
-  Orange: "#f89406"
+  Orange: "#f9690e"
 };
 export const AccentColor = theme("accent", {
   red: Colors.Red,
@@ -32,6 +34,10 @@ export const SecondaryColor = theme("mode", {
 export const TertiaryColor = theme("mode", {
   light: Colors.TertiaryDark,
   dark: Colors.TertiaryLight
+});
+export const QuaternaryColor = theme("mode", {
+  light: Colors.QuaternaryLight,
+  dark: Colors.QuaternaryDark
 });
 export const BackgroundColor = theme("mode", {
   light: Colors.BackgroundLight,

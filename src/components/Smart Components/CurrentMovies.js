@@ -2,18 +2,47 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { fetchCurrentMovies } from "../../actions";
 import RenderMovies from "../Dumb Components/RenderMovies";
+import Loader from "../Dumb Components/Loader";
+
 class CurrentMovies extends Component {
+  state = { isLoading: false };
+  _isMounted = false;
   componentDidMount() {
-    this.props.fetchCurrentMovies(this.props.page, 1, this.props.filtering);
+    this.loadMovies();
+    window.addEventListener("scroll", this.handleScrolling);
+
+    this._isMounted = true;
   }
   componentDidUpdate(prevProps) {
     if (
       this.props.filtering !== prevProps.filtering ||
       this.props.page !== prevProps.page
     ) {
-      this.props.fetchCurrentMovies(this.props.page, 1, this.props.filtering);
+      this.loadMovies();
     }
   }
+  loadMovies = (page = 1) => {
+    this.setState({ isLoading: true });
+    this.props
+      .fetchCurrentMovies(this.props.page, page, this.props.filtering)
+      .then(() => this.setState({ isLoading: false }));
+  };
+  componentWillUnmount() {
+    window.removeEventListener("scroll", this.handleScrolling);
+    this._isMounted = false;
+  }
+  handleScrolling = event => {
+    if (this.state.isLoading) {
+      return;
+    }
+    if (
+      window.innerHeight + window.pageYOffset >=
+        document.documentElement.scrollHeight &&
+      this._isMounted
+    ) {
+      this.loadMovies(this.props.currentMovies.page + 1);
+    }
+  };
 
   render() {
     const topMargin = this.props.page === "Filter" ? "0" : "90px";
@@ -31,6 +60,7 @@ class CurrentMovies extends Component {
         ) : (
           <RenderMovies fetching={true} />
         )}
+        {this.state.isLoading && <Loader />}
       </div>
     );
   }

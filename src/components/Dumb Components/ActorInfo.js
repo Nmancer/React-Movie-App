@@ -1,9 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 import {
-  PrimaryColor,
   AccentColor,
-  TertiaryColor
+  TertiaryColor,
+  QuaternaryColor
 } from "../../helpers/Theming";
 const ActorInfo = props => {
   const {
@@ -57,7 +57,7 @@ const ActorInfo = props => {
 const ActorWrapper = styled.div`
   width: 100%;
   margin-top: 60px;
-  background-color: ${PrimaryColor};
+  background-color: ${QuaternaryColor};
 `;
 const Actor = styled.div`
   display: flex;
