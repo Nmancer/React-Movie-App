@@ -11,8 +11,9 @@ const Global = createGlobalStyle`
   }
   body {
     background-color:${BackgroundColor};   
-    font-family: "Lato", sans-serif;
-  }
+    font-family: 'Rubik', sans-serif;
 
+  }
+  
   `;
 export { Global };

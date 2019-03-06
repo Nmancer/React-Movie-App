@@ -7,7 +7,7 @@ const BounceAnimation = keyframes`
   100% { margin-bottom: 0 }
 `;
 const DotWrapper = styled.div`
-  margin: 100px 0 50px 0;
+  padding: 50px 0 50px 0;
   display: flex;
   align-items: flex-end;
   justify-content: center;
@@ -24,11 +24,13 @@ const Dot = styled.div`
 `;
 const Loader = () => {
   return (
-    <DotWrapper>
-      <Dot delay="0s" />
-      <Dot delay=".1s" />
-      <Dot delay=".2s" />
-    </DotWrapper>
+    <>
+      <DotWrapper>
+        <Dot delay="0s" />
+        <Dot delay=".1s" />
+        <Dot delay=".2s" />
+      </DotWrapper>
+    </>
   );
 };
 

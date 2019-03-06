@@ -1,16 +1,17 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { fetchCurrentMovies } from "../../actions";
-import RenderMovies from "../Dumb Components/RenderMovies";
-import Loader from "../Dumb Components/Loader";
-
+import RenderMovies from "../Presentational/RenderMovies";
+// import Loader from "./../Presentational/Loader";
+import _throttle from "lodash/throttle";
+import Carousel from "../Presentational/Carousel";
 class CurrentMovies extends Component {
   state = { isLoading: false };
   _isMounted = false;
+
   componentDidMount() {
     this.loadMovies();
-    window.addEventListener("scroll", this.handleScrolling);
-
+    window.addEventListener("scroll", _throttle(this.handleScrolling, 300));
     this._isMounted = true;
   }
   componentDidUpdate(prevProps) {
@@ -25,10 +26,12 @@ class CurrentMovies extends Component {
     this.setState({ isLoading: true });
     this.props
       .fetchCurrentMovies(this.props.page, page, this.props.filtering)
-      .then(() => this.setState({ isLoading: false }));
+      .then(() => {
+        this.setState({ isLoading: false });
+      });
   };
   componentWillUnmount() {
-    window.removeEventListener("scroll", this.handleScrolling);
+    window.removeEventListener("scroll", _throttle(this.handleScrolling, 300));
     this._isMounted = false;
   }
   handleScrolling = event => {
@@ -36,7 +39,7 @@ class CurrentMovies extends Component {
       return;
     }
     if (
-      window.innerHeight + window.pageYOffset >=
+      window.innerHeight + window.pageYOffset + 200 >=
         document.documentElement.scrollHeight &&
       this._isMounted
     ) {
@@ -45,22 +48,30 @@ class CurrentMovies extends Component {
   };
 
   render() {
-    const topMargin = this.props.page === "Filter" ? "0" : "90px";
+    const topMargin = this.props.page === "Filter" ? "0" : "70px";
+
     return (
       <div style={{ marginTop: topMargin }}>
         {this.props.currentMovies.results ? (
-          <RenderMovies
-            page={this.props.page}
-            movies={this.props.currentMovies.results}
-            resultsPage={this.props.currentMovies.page}
-            fetchMovies={this.props.fetchCurrentMovies}
-            filtering={this.props.filtering}
-            total={this.props.currentMovies.total_results}
-          />
+          <>
+            {this.props.page === "Latest" && (
+              <Carousel movies={this.props.currentMovies.results} />
+            )}
+            <RenderMovies
+              page={this.props.page}
+              movies={this.props.currentMovies.results}
+              resultsPage={this.props.currentMovies.page}
+              fetchMovies={this.props.fetchCurrentMovies}
+              filtering={this.props.filtering}
+              total={this.props.currentMovies.total_results}
+            />
+          </>
         ) : (
-          <RenderMovies fetching={true} />
+          <>
+            <Carousel movies={this.props.currentMovies.results} />
+            <RenderMovies initialLoad={true} />
+          </>
         )}
-        {this.state.isLoading && <Loader />}
       </div>
     );
   }

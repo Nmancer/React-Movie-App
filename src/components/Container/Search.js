@@ -4,7 +4,6 @@ import { fetchSearchResults } from "../../actions";
 import { Link, withRouter } from "react-router-dom";
 import Autosuggest from "react-autosuggest";
 import { FaSistrix } from "react-icons/fa";
-
 import styled from "styled-components";
 
 const getSuggestionValue = suggestion => {
@@ -118,7 +117,7 @@ const renderInputComponent = inputProps => (
 const StyledAutoSuggest = styled.div`
   .react-autosuggest__input {
     margin-left: 32px;
-    width: 230px;
+    width: 80%;
     height: 18px;
     padding: 20px 20px 20px 45px;
     background: #eee;
@@ -126,7 +125,7 @@ const StyledAutoSuggest = styled.div`
     font-size: 16px;
     outline: none;
     color: rgb(94, 94, 94);
-    border-radius: 22px;
+    border-radius: 3px;
   }
 
   .react-autosuggest__input:focus {

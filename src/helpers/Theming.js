@@ -1,11 +1,11 @@
 import theme from "styled-theming";
 
 const Colors = {
-  PrimaryDark: "#000",
+  PrimaryDark: "#2b2b31",
   SecondaryDark: "#18171d",
-  TertiaryDark: "#232027",
+  TertiaryDark: "#232323",
   PrimaryLight: "#fff",
-  SecondaryLight: "#f6f6f6",
+  SecondaryLight: "#bdc3c7",
   TertiaryLight: "#e8e8e8",
   QuaternaryDark: "#4a4951",
   QuaternaryLight: "#f2f2f2",

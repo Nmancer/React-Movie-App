@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { fetchMovieDetails } from "../../actions";
-import RenderMovieDetails from "../Dumb Components/RenderMovieDetails";
+import RenderMovieDetails from "../Presentational/RenderMovieDetails";
 import { withRouter } from "react-router-dom";
 class MovieDetails extends Component {
   state = {

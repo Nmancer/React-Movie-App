@@ -1,13 +1,12 @@
 import React from "react";
 import { NavLink, Link } from "react-router-dom";
-
 import { FaFilter } from "react-icons/fa";
 import { FaFire } from "react-icons/fa";
 import { FaCalendarAlt } from "react-icons/fa";
 import { FaRegHeart } from "react-icons/fa";
 import { slide as Menu } from "react-burger-menu";
 import styled from "styled-components";
-import Search from "../Smart Components/Search";
+import Search from "../Container/Search";
 import {
   PrimaryColor,
   SecondaryColor,
@@ -41,30 +40,26 @@ const SideMenu = ({ changeAccent, changeMode }) => {
           FILTER
         </NavLink>
 
-        <Search />
-
         <ThemeChanger changeMode={changeMode} changeAccent={changeAccent} />
+        <Search />
       </Menu>
     </StyledBurgerMenu>
   );
 };
-const BurgerLogo = styled(Link)`
-  font-size: 32px;
-  font-weight: bold;
 
+const BurgerLogo = styled(Link)`
+  font-size: 38px;
+  font-weight: bold;
+  color: ${AccentColor} !important;
   margin-bottom: 20px;
 `;
 const StyledBurgerMenu = styled.div`
   .bm-burger-button {
-    display: none;
     position: fixed;
     width: 36px;
     height: 30px;
     left: 20px;
     top: 30px;
-    @media (max-width: 960px) {
-      display: inline-block;
-    }
   }
 
   .bm-burger-bars {

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import CurrentMovies from "./CurrentMovies";
-import RenderFilter from "../Dumb Components/RenderFilter";
+import RenderFilter from "../Presentational/RenderFilter";
 
 class SearchPage extends Component {
   state = {

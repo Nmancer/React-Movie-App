@@ -5,7 +5,7 @@ import { createStore, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
 import reducers from "./reducers";
 import * as serviceWorker from "./serviceWorker";
-import App from "./components/Smart Components/App";
+import App from "./components/Container/App";
 
 import { BrowserRouter } from "react-router-dom";
 const AppStore = createStore(reducers, applyMiddleware(thunk));

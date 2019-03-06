@@ -14,6 +14,7 @@ const ThemeChanger = ({ changeMode, changeAccent }) => {
   );
 };
 const ThemingWrapper = styled.div`
+  margin: 15px;
   padding: 5px;
   display: flex;
   justify-content: center;

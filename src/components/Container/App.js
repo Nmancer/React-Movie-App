@@ -13,10 +13,10 @@ import {
   ActorDetails
 } from "../../helpers/LazyLoadingStuff";
 import { Global } from "../../helpers/Global";
-import Header from "../Dumb Components/Header";
+import Header from "../Presentational/Header";
 
 class App extends React.Component {
-  state = { mode: false, accent: "orange" };
+  state = { mode: false, accent: "red" };
   changeMode = () => {
     this.setState({ mode: !this.state.mode });
   };
@@ -38,10 +38,7 @@ class App extends React.Component {
               changeAccent={this.changeAccent}
               changeMode={this.changeMode}
             />
-            <Header
-              changeAccent={this.changeAccent}
-              changeMode={this.changeMode}
-            />
+            <Header />
             <TransitionGroup>
               <CSSTransition
                 key={this.props.location.key}
@@ -50,7 +47,14 @@ class App extends React.Component {
               >
                 <section className="route-section">
                   <Switch location={this.props.location}>
-                    <Route exact path="/" component={CurrentMovies} />
+                    <Route
+                      exact
+                      path="/"
+                      render={props => (
+                        <CurrentMovies {...props} page="Latest" />
+                      )}
+                    />
+
                     <Route
                       path="/top"
                       render={props => (
