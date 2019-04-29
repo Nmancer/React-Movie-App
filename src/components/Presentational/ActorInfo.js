@@ -8,7 +8,7 @@ import {
 import ActorDetailsPlaceHolder from "./Placeholders/ActorDetailsPlaceHolder";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
-const ActorInfo = props => {
+const ActorInfo = ({ actorDetails, loading }) => {
   const {
     biography,
     birthday,
@@ -16,14 +16,14 @@ const ActorInfo = props => {
     name,
     place_of_birth,
     profile_path
-  } = props.actorDetails;
+  } = actorDetails;
   return (
     <ActorWrapper>
       <Actor>
-        {props.loading ? (
+        {loading ? (
           <ActorDetailsPlaceHolder />
         ) : (
-          props.actorDetails && (
+          actorDetails && (
             <>
               <ActorImage>
                 <LazyLoadImage

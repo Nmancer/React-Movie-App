@@ -1,22 +1,21 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { SecondaryColor } from "../../helpers/Theming";
 import MovieCard from "./MovieCard";
 import MovieCardPlaceHolder from "./Placeholders/MovieCardPlaceHolder";
+import BigHeading from "./styles/BigHeading";
 const dummyArray = [];
 dummyArray.length = 20;
 dummyArray.fill(0);
 
-const RenderMovies = props => {
-  const movies = props.movies;
+const RenderMovies = ({ movies, page, initialLoad }) => {
   return (
     <MovieCardsWrapper>
       <MoviesHeading>
-        <h1>{props.page ? props.page : "Latest"} Movies</h1>
-        {props.total ? <h1>{props.total} total</h1> : null}
+        <h1>{page ? page : "Latest"} Movies</h1>
       </MoviesHeading>
-      {props.initialLoad ? (
+
+      {initialLoad ? (
         <MovieCards>
           {dummyArray.map((e, i) => {
             return (
@@ -48,15 +47,8 @@ const MovieCardsWrapper = styled.div`
     width: 100%;
   }
 `;
-const MoviesHeading = styled.div`
-  margin: 15px 65px 15px 65px;
-  display: flex;
-  justify-content: space-between;
-  h1 {
-    font-weight: normal;
-    font-size: 20px;
-    color: ${SecondaryColor};
-  }
+const MoviesHeading = styled(BigHeading)`
+  width: 85%;
 `;
 const MovieCards = styled.div`
   display: flex;

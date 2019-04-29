@@ -1,11 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { Switch, Route, withRouter } from "react-router-dom";
 import CurrentMovies from "./CurrentMovies";
+import { fetchCurrentMovies } from "../../actions";
 import ScrollToTop from "../../helpers/ScrollToTop";
 import { ThemeProvider } from "styled-components";
 import WrapperAnimations from "../../helpers/WrapperAnimations";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
-
+import { connect } from "react-redux";
 import {
   SideMenu,
   MovieDetails,
@@ -14,88 +15,100 @@ import {
 } from "../../helpers/LazyLoadingStuff";
 import { Global } from "../../helpers/Global";
 import Header from "../Presentational/Header";
+const initialMode = localStorage.getItem("mode") === "true";
+const initialAccent = localStorage.getItem("accent") || "red";
 
-class App extends React.Component {
-  state = { mode: false, accent: "red" };
-  changeMode = () => {
-    this.setState({ mode: !this.state.mode });
+const App = props => {
+  const [mode, setMode] = useState(initialMode);
+  const [accent, setAccent] = useState(initialAccent);
+
+  const changeMode = () => {
+    localStorage.setItem("mode", !mode);
+    setMode(!mode);
   };
-  changeAccent = color => {
-    this.setState({ accent: color });
+  const changeAccent = color => {
+    localStorage.setItem("accent", color);
+    setAccent(color);
   };
-  render() {
-    return (
-      <ThemeProvider
-        theme={{
-          mode: this.state.mode ? "light" : "dark",
-          accent: this.state.accent
-        }}
-      >
-        <WrapperAnimations>
-          <Global />
-          <ScrollToTop>
-            <SideMenu
-              changeAccent={this.changeAccent}
-              changeMode={this.changeMode}
-            />
-            <Header />
-            <TransitionGroup>
-              <CSSTransition
-                key={this.props.location.key}
-                timeout={{ enter: 300, exit: 300 }}
-                classNames={"fade"}
-              >
-                <section className="route-section">
-                  <Switch location={this.props.location}>
-                    <Route
-                      exact
-                      path="/"
-                      render={props => (
-                        <CurrentMovies {...props} page="Latest" />
-                      )}
-                    />
 
-                    <Route
-                      path="/top"
-                      render={props => (
-                        <CurrentMovies {...props} page="Top rated" />
-                      )}
-                    />
-                    <Route
-                      path="/popular"
-                      render={props => (
-                        <CurrentMovies {...props} page="Popular" />
-                      )}
-                    />
-                    <Route
-                      path="/upcoming"
-                      render={props => (
-                        <CurrentMovies {...props} page="Upcoming" />
-                      )}
-                    />
-                    <Route path="/filter" component={SearchPage} />
-                    <Route path="/movies/:id" component={MovieDetails} />
-                    <Route path="/actors/:id" component={ActorDetails} />
-                    <Route
-                      path="/search"
-                      render={props => (
-                        <CurrentMovies
-                          {...props}
-                          movies={this.props.results}
-                          page="Found"
-                        />
-                      )}
-                    />
-                    <Route component={CurrentMovies} />
-                  </Switch>
-                </section>
-              </CSSTransition>
-            </TransitionGroup>
-          </ScrollToTop>
-        </WrapperAnimations>
-      </ThemeProvider>
-    );
-  }
-}
+  const { location } = props;
 
-export default withRouter(App);
+  return (
+    <ThemeProvider
+      theme={{
+        mode: mode ? "light" : "dark",
+        accent: accent
+      }}
+    >
+      <WrapperAnimations>
+        <Global />
+        <ScrollToTop>
+          <SideMenu changeAccent={changeAccent} changeMode={changeMode} />
+          <Header />
+          <TransitionGroup>
+            <CSSTransition
+              key={location.key}
+              timeout={{ enter: 300, exit: 300 }}
+              classNames={"fade"}
+            >
+              <section className="route-section">
+                <Switch location={location}>
+                  <Route
+                    exact
+                    path="/"
+                    render={props => <CurrentMovies {...props} page="Latest" />}
+                  />
+                  <Route
+                    path="/latest"
+                    render={props => <CurrentMovies {...props} page="Latest" />}
+                  />
+                  <Route
+                    path="/top"
+                    render={props => (
+                      <CurrentMovies {...props} page="Top rated" />
+                    )}
+                  />
+                  <Route
+                    path="/popular"
+                    render={props => (
+                      <CurrentMovies {...props} page="Popular" />
+                    )}
+                  />
+                  <Route
+                    path="/upcoming"
+                    render={props => (
+                      <CurrentMovies {...props} page="Upcoming" />
+                    )}
+                  />
+                  <Route path="/filter" component={SearchPage} />
+                  <Route path="/movies/:id" component={MovieDetails} />
+                  <Route path="/actors/:id" component={ActorDetails} />
+                  <Route
+                    path="/search"
+                    render={props => (
+                      <CurrentMovies
+                        {...props}
+                        movies={props.foundMovies}
+                        page="Found"
+                      />
+                    )}
+                  />
+                  <Route component={CurrentMovies} />
+                </Switch>
+              </section>
+            </CSSTransition>
+          </TransitionGroup>
+        </ScrollToTop>
+      </WrapperAnimations>
+    </ThemeProvider>
+  );
+};
+
+const mapStateToProps = state => {
+  return { foundMovies: state.searchResults };
+};
+
+export default connect(
+  mapStateToProps,
+  { fetchCurrentMovies }
+)(withRouter(App));

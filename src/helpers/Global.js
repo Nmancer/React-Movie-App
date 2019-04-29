@@ -11,7 +11,7 @@ const Global = createGlobalStyle`
   }
   body {
     background-color:${BackgroundColor};   
-    font-family: 'Rubik', sans-serif;
+    font-family: 'Fira Sans', sans-serif;
 
   }
   

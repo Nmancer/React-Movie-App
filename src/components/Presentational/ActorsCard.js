@@ -4,15 +4,20 @@ import styled from "styled-components";
 import ActorCardPlaceHolder from "./Placeholders/ActorCardPlaceHolder";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
-import { PrimaryColor, SecondaryColor } from "../../helpers/Theming";
-const ActorsCard = props => {
+import {
+  PrimaryColor,
+  SecondaryColor,
+  AccentColor
+} from "../../helpers/Theming";
+import BigHeading from "./styles/BigHeading";
+const ActorsCard = ({ credits, loading }) => {
   return (
     <ActorsWrapper>
-      <ActorsHeadingWrapper>
-        <ActorsHeadingBig>Actors</ActorsHeadingBig>
-      </ActorsHeadingWrapper>
+      <BigHeading>
+        <h1>Actors</h1>
+      </BigHeading>
 
-      {props.loading ? (
+      {loading ? (
         <PlaceHolderRow>
           {[1, 2, 3, 4, 5, 6].map((e, i) => (
             <PlaceholderItem key={i}>
@@ -21,9 +26,9 @@ const ActorsCard = props => {
           ))}
         </PlaceHolderRow>
       ) : (
-        props.credits && (
+        credits && (
           <Actors>
-            {props.credits.cast.slice(0, 6).map(actor => {
+            {credits.cast.slice(0, 7).map(actor => {
               return (
                 <Link to={`/actors/${actor.id}`} key={actor.id}>
                   <ActorsItem>
@@ -40,9 +45,9 @@ const ActorsCard = props => {
                         effect="blur"
                       />
                     </ImageWrapper>
-                    <ActorsHeadingSmall>{actor.name}</ActorsHeadingSmall>
+                    <h4>{actor.name}</h4>
 
-                    <ActorsHeadingSmall>{actor.character}</ActorsHeadingSmall>
+                    <h4>{actor.character}</h4>
                   </ActorsItem>
                 </Link>
               );
@@ -65,21 +70,7 @@ const ActorsWrapper = styled.div`
     height: 100%;
   }
 `;
-const ActorsHeadingWrapper = styled.div`
-  margin: 10px 10px 10px 170px;
-`;
-const ActorsHeadingBig = styled.h1`
-  font-weight: normal;
-  font-size: 20px;
-  color: ${SecondaryColor};
-`;
-const ActorsHeadingSmall = styled.h4`
-  text-align: center;
-  padding: 8px;
-  font-weight: normal;
-  font-size: 14px;
-  color: ${SecondaryColor};
-`;
+
 const PlaceHolderRow = styled.div`
   margin: 0 auto;
   display: flex;
@@ -103,17 +94,31 @@ const Actors = styled.div`
 `;
 const ImageWrapper = styled.div`
   display: flex;
-
   justify-content: center;
 `;
 const ActorsItem = styled.div`
   background: ${PrimaryColor};
   margin: 15px;
   min-height: 280px;
-  min-width: 154px;
+  width: 154px;
   border-radius: 2px;
+
+  h4 {
+    text-align: center;
+    padding: 8px;
+    font-weight: normal;
+    font-size: 14px;
+    color: ${SecondaryColor};
+    transition: 0.5s all;
+  }
+
   & img {
     border-radius: 2px 2px 0 0;
+  }
+  transition: 5s all;
+
+  :hover h4 {
+    color: ${AccentColor};
   }
 `;
 export default ActorsCard;

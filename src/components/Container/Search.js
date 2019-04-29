@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { fetchSearchResults } from "../../actions";
 import { Link, withRouter } from "react-router-dom";
@@ -10,77 +10,77 @@ const getSuggestionValue = suggestion => {
   return suggestion.title;
 };
 
-class Search extends React.Component {
-  state = {
-    value: "",
-    suggestions: [],
-    isLoading: false,
-    id: null
-  };
+const Search = props => {
+  const [value, setValue] = useState("");
+  const [suggestions, setSuggestions] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
-  loadSuggestions(value) {
-    this.setState({
-      isLoading: true
+  useEffect(() => {
+    if (isLoading) {
+      return;
+    }
+
+    props.fetchSearchResults(value).then(() => {
+      setIsLoading(true);
+      setSuggestions(props.searchResults);
     });
+  }, [isLoading]);
 
-    this.props.fetchSearchResults(value);
-    this.setState({
-      isLoading: false,
-      suggestions: this.props.searchResults
-    });
-  }
-
-  onChange = (event, { newValue }) => {
-    this.setState({
-      value: newValue
+  const loadSuggestions = value => {
+    setIsLoading(true);
+    props.fetchSearchResults(value).then(() => {
+      setIsLoading(false);
+      setSuggestions(props.searchResults);
     });
   };
 
-  onSuggestionsFetchRequested = ({ value }) => {
-    this.loadSuggestions(value);
+  const onChange = (event, { newValue }) => {
+    setValue(newValue);
   };
-  onSuggestionSelected = (
+
+  const onSuggestionsFetchRequested = ({ value }) => {
+    loadSuggestions(value);
+  };
+  const onSuggestionSelected = (
     event,
     { suggestion, suggestionValue, suggestionIndex, sectionIndex, method }
   ) => {
-    this.props.history.push(`/movies/${suggestion.id}`);
+    props.history.push(`/movies/${suggestion.id}`);
   };
-  onSuggestionsClearRequested = () => {
-    this.setState({
-      suggestions: []
-    });
+
+  const onSuggestionsClearRequested = () => {
+    setSuggestions([]);
   };
-  onKeyPress = e => {
+  const onKeyPress = e => {
     if (e.key === "Enter") {
-      this.props.history.push("/search");
+      props.history.push("/search");
     }
   };
-  render() {
-    const { value, suggestions } = this.state;
-    const inputProps = {
-      placeholder: "search",
-      value,
-      onChange: this.onChange,
-      onKeyPress: this.onKeyPress
-    };
 
-    return (
-      <StyledAutoSuggest>
-        <Autosuggest
-          suggestions={suggestions}
-          onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
-          onSuggestionsClearRequested={this.onSuggestionsClearRequested}
-          getSuggestionValue={getSuggestionValue}
-          renderSuggestion={renderSuggestion}
-          onSuggestionSelected={this.onSuggestionSelected}
-          inputProps={inputProps}
-          type={"search"}
-          renderInputComponent={renderInputComponent}
-        />
-      </StyledAutoSuggest>
-    );
-  }
-}
+  const inputProps = {
+    placeholder: "search",
+    value,
+    onChange: onChange,
+    onKeyPress: onKeyPress
+  };
+
+  return (
+    <StyledAutoSuggest>
+      <Autosuggest
+        suggestions={suggestions}
+        onSuggestionsFetchRequested={onSuggestionsFetchRequested}
+        onSuggestionsClearRequested={onSuggestionsClearRequested}
+        getSuggestionValue={getSuggestionValue}
+        renderSuggestion={renderSuggestion}
+        onSuggestionSelected={onSuggestionSelected}
+        inputProps={inputProps}
+        type={"search"}
+        renderInputComponent={renderInputComponent}
+      />
+    </StyledAutoSuggest>
+  );
+};
+
 const mapStateToProps = state => {
   return { searchResults: state.searchResults };
 };

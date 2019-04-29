@@ -7,13 +7,14 @@ import MovieDetailsPlaceholder from "./Placeholders/MovieDetailsPlaceholder";
 
 import RenderMovies from "./RenderMovies";
 import ActorsCard from "./ActorsCard";
+import Reviews from "./Reviews";
 const formatter = new Intl.NumberFormat("en-US", {
   style: "currency",
   currency: "USD",
   minimumFractionDigits: 2
 });
 
-const RenderMovieDetails = props => {
+const RenderMovieDetails = ({ details, loading }) => {
   const {
     backdrop_path,
     poster_path,
@@ -24,11 +25,12 @@ const RenderMovieDetails = props => {
     release_date,
     production_companies,
     recommendations,
+    reviews,
     runtime,
     tagline,
     vote_average,
     revenue
-  } = props.details;
+  } = details;
 
   return (
     <MovieDetails>
@@ -39,7 +41,7 @@ const RenderMovieDetails = props => {
             : null
         }
       >
-        {props.loading ? (
+        {loading ? (
           <PlaceholderWrapper>
             <MovieDetailsPlaceholder />
           </PlaceholderWrapper>
@@ -98,14 +100,16 @@ const RenderMovieDetails = props => {
         )}
       </MovieCardWrapper>
 
-      <ActorsCard credits={credits} loading={props.loading} />
-
-      {recommendations && recommendations.results ? (
+      {credits && credits.cast.length > 0 && (
+        <ActorsCard credits={credits} loading={loading} />
+      )}
+      {reviews && reviews.results.length > 0 && <Reviews reviews={reviews} />}
+      {recommendations && recommendations.results.length > 0 && (
         <RenderMovies
           page="Similar"
-          movies={recommendations.results.slice(0, 8)}
+          movies={recommendations.results.slice(0, 10)}
         />
-      ) : null}
+      )}
     </MovieDetails>
   );
 };

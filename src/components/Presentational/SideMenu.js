@@ -4,13 +4,14 @@ import { FaFilter } from "react-icons/fa";
 import { FaFire } from "react-icons/fa";
 import { FaCalendarAlt } from "react-icons/fa";
 import { FaRegHeart } from "react-icons/fa";
-import { slide as Menu } from "react-burger-menu";
+import { stack as Menu } from "react-burger-menu";
 import styled from "styled-components";
 import Search from "../Container/Search";
 import {
   PrimaryColor,
   SecondaryColor,
-  AccentColor
+  AccentColor,
+  TertiaryColor
 } from "../../helpers/Theming";
 import ThemeChanger from "./ThemeChanger";
 
@@ -20,7 +21,6 @@ const SideMenu = ({ changeAccent, changeMode }) => {
       <Menu
         pageWrapId={"page-wrap"}
         outerContainerId={"outer-container"}
-        noOverlay={true}
         width={"330px"}
       >
         <BurgerLogo to="/">TMDB</BurgerLogo>
@@ -56,14 +56,14 @@ const BurgerLogo = styled(Link)`
 const StyledBurgerMenu = styled.div`
   .bm-burger-button {
     position: fixed;
-    width: 36px;
-    height: 30px;
+    width: 25px;
+    height: 19px;
     left: 20px;
-    top: 30px;
+    top: 25px;
   }
 
   .bm-burger-bars {
-    background: ${SecondaryColor};
+    background: ${TertiaryColor};
   }
 
   .bm-cross-button {

@@ -1,4 +1,11 @@
 import MovieDB from "../helpers/MovieDB";
+import {
+  FETCH_ACTORDETAILS,
+  FETCH_MOVIEDETAILS,
+  FETCH_MOVIES,
+  FETCH_SEARCH
+} from "./types";
+
 const API_KEY = process.env.REACT_APP_API_KEY;
 export const fetchCurrentMovies = (
   movieCategory,
@@ -43,27 +50,31 @@ export const fetchCurrentMovies = (
       url = `movie/now_playing`;
       break;
   }
+
   const res = await MovieDB.get(url, { params });
-  dispatch({ type: "FETCH_MOVIES", payload: res.data });
+  dispatch({ type: FETCH_MOVIES, payload: res.data });
 };
 
 export const fetchMovieDetails = id => async dispatch => {
   const res = await MovieDB.get(`movie/${id}`, {
-    params: { api_key: API_KEY, append_to_response: "credits,recommendations" }
+    params: {
+      api_key: API_KEY,
+      append_to_response: "credits,recommendations,reviews"
+    }
   });
-  dispatch({ type: "FETCH_MOVIEDETAILS", payload: res.data });
+  dispatch({ type: FETCH_MOVIEDETAILS, payload: res.data });
 };
 
 export const fetchSearchResults = query => async dispatch => {
   const res = await MovieDB.get(`search/movie`, {
     params: { api_key: API_KEY, query }
   });
-  dispatch({ type: "FETCH_SEARCH", payload: res.data.results });
+  dispatch({ type: FETCH_SEARCH, payload: res.data.results });
 };
 
 export const fetchActorDetails = id => async dispatch => {
   const res = await MovieDB.get(`person/${id}`, {
     params: { api_key: API_KEY, append_to_response: "movie_credits" }
   });
-  dispatch({ type: "FETCH_ACTORDETAILS", payload: res.data });
+  dispatch({ type: FETCH_ACTORDETAILS, payload: res.data });
 };

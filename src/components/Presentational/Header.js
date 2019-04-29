@@ -14,12 +14,11 @@ const Header = () => {
     <HeaderWrapper>
       <HeaderContainer>
         <HeaderItem>
-          <HeaderLogo exact={true} to="/">
+          <HeaderLogo exact={true} to="/latest">
             Made with TMDB
           </HeaderLogo>
         </HeaderItem>
         <HeaderItemMiddle>
-          {" "}
           <Search />
         </HeaderItemMiddle>
 
@@ -55,9 +54,8 @@ const HeaderContainer = styled.header`
   @media (max-width: 1280px) {
     width: 85%;
   }
-
-  @media (max-width: 560px) {
-    justify-content: flex-end;
+  @media (max-width: 780px) {
+    justify-content: center;
   }
 `;
 
@@ -65,6 +63,7 @@ const HeaderItem = styled.div`
   display: flex;
   align-items: center;
 `;
+
 const HeaderItemRight = styled(HeaderItem)``;
 const HeaderItemMiddle = styled(HeaderItem)`
   @media (max-width: 960px) {
