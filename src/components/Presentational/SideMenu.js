@@ -1,9 +1,13 @@
 import React from "react";
 import { NavLink, Link } from "react-router-dom";
-import { FaFilter } from "react-icons/fa";
-import { FaFire } from "react-icons/fa";
-import { FaCalendarAlt } from "react-icons/fa";
-import { FaRegHeart } from "react-icons/fa";
+import {
+  FaFilter,
+  FaCalendarAlt,
+  FaFire,
+  FaRegHeart,
+  FaTicketAlt
+} from "react-icons/fa";
+
 import { stack as Menu } from "react-burger-menu";
 import styled from "styled-components";
 import Search from "../Container/Search";
@@ -24,20 +28,23 @@ const SideMenu = ({ changeAccent, changeMode }) => {
         width={"330px"}
       >
         <BurgerLogo to="/">TMDB</BurgerLogo>
+        <NavLink to="/latest">
+          <FaTicketAlt /> <span>Latest </span>
+        </NavLink>
         <NavLink to="/top">
           <FaRegHeart />
-          TOP RATED
+          Top rated
         </NavLink>
         <NavLink to="/popular">
           <FaFire />
-          POPULAR
+          Popular
         </NavLink>
         <NavLink to="/upcoming">
-          <FaCalendarAlt /> UPCOMING
+          <FaCalendarAlt /> Upcoming
         </NavLink>
         <NavLink to="/filter">
           <FaFilter />
-          FILTER
+          Filter
         </NavLink>
 
         <ThemeChanger changeMode={changeMode} changeAccent={changeAccent} />
@@ -53,6 +60,7 @@ const BurgerLogo = styled(Link)`
   color: ${AccentColor} !important;
   margin-bottom: 20px;
 `;
+
 const StyledBurgerMenu = styled.div`
   .bm-burger-button {
     position: fixed;
@@ -90,7 +98,7 @@ const StyledBurgerMenu = styled.div`
     display: block;
   }
   .bm-item-list svg {
-    margin-right: 1px;
+    margin-right: 8px;
   }
   .bm-item {
     color: ${SecondaryColor};

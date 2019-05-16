@@ -1,11 +1,12 @@
 import React from "react";
-
+import { FaPlay } from "react-icons/fa";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { PrimaryColor, AccentColor } from "../../helpers/Theming";
+import formatGenres from "../../helpers/formatGenres";
 
 import Slider from "react-slick";
-
+import { SliderArrowRight, SliderArrowLeft } from "./styles/SliderArrow";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./styles/arrows.css";
@@ -14,7 +15,9 @@ const settings = {
   speed: 500,
   slidesToShow: 1,
   slidesToScroll: 1,
-  lazyLoad: true
+  lazyLoad: true,
+  prevArrow: <SliderArrowLeft to="prev" />,
+  nextArrow: <SliderArrowRight to="next" />
 };
 
 const Carousel = ({ movies }) => {
@@ -31,13 +34,25 @@ const Carousel = ({ movies }) => {
                 }`}
               />
               <CarouselInfo>
+                <MovieInfo>
+                  <p>{formatGenres(movie.genre_ids)}</p>
+                  <p>
+                    {movie.release_date ? movie.release_date.slice(0, 4) : null}
+                  </p>
+                </MovieInfo>
                 <h1>{movie.title}</h1>
+
                 <p>
                   {movie.overview.length > 150
                     ? movie.overview.slice(0, 150) + "..."
                     : movie.overview}
                 </p>
-                <ReadMore to={`/movies/${movie.id}`}>Read More!</ReadMore>
+                <ReadMore to={`/movies/${movie.id}`} as={Link}>
+                  <span>
+                    <FaPlay />
+                  </span>
+                  Read More
+                </ReadMore>
               </CarouselInfo>
             </CarouselItemWrapper>
           ))}
@@ -48,24 +63,32 @@ const Carousel = ({ movies }) => {
 };
 
 const ReadMore = styled(Link)`
+  span {
+    font-size: 16px;
+    margin-right: 8px;
+  }
+  font-size: 18px;
   color: #fff;
   margin: 15px 0 10px 20px;
-  padding: 9px;
-  width: 105px;
-  background-color: none;
-  border: 2px solid ${AccentColor};
-  :hover {
-    background-color: ${AccentColor};
-  }
+  padding: 7px;
+  width: 190px;
+  height: 40px;
+  text-align: center;
+  background-color: red;
+  border-radius: 20px;
+
+  background-color: ${AccentColor};
+
   transition: 0.5s;
 `;
-
+const MovieInfo = styled.div`
+  display: flex;
+`;
 const CarouselItemWrapper = styled.div`
   max-height: 550px;
   margin: 0 auto;
   position: relative;
   background: ${PrimaryColor};
-
   img {
     max-width: 100%;
     max-height: 100%;
@@ -77,14 +100,22 @@ const CarouselItemWrapper = styled.div`
 const CarouselInfo = styled.div`
   color: #fff;
   position: absolute;
-  bottom: 0px;
-  left: 200px;
-  height: 150px;
+  bottom: 50px;
+  left: 150px;
+  h1 {
+    font-size: 28px;
+    color: ${AccentColor};
+  }
+  p,
+  h1 {
+    margin: 10px;
+  }
+
   width: 500px;
-  border-radius: 0 0 4px 4px;
+
   display: flex;
   flex-direction: column;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.7);
   @media (max-width: 1280px) {
     bottom: 0px;
     left: 0px;

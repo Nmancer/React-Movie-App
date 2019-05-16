@@ -6,3 +6,18 @@
   right: 3% !important;
   z-index: 1;
 }
+.slick-prev,
+.slick-next {
+  font-size: 45px !important;
+}
+.slick-prev:before,
+.slick-next:before {
+  content: "" !important;
+}
+
+@media only screen and (max-width: 1280px) {
+  .slick-prev,
+  .slick-next {
+    font-size: 25px !important;
+  }
+}

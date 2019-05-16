@@ -14,7 +14,7 @@ const ActorsCard = ({ credits, loading }) => {
   return (
     <ActorsWrapper>
       <BigHeading>
-        <h1>Actors</h1>
+        <h1>Movie Cast</h1>
       </BigHeading>
 
       {loading ? (

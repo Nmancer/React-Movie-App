@@ -51,17 +51,11 @@ const Search = props => {
   const onSuggestionsClearRequested = () => {
     setSuggestions([]);
   };
-  const onKeyPress = e => {
-    if (e.key === "Enter") {
-      props.history.push("/search");
-    }
-  };
 
   const inputProps = {
-    placeholder: "search",
+    placeholder: "Search for a movie",
     value,
-    onChange: onChange,
-    onKeyPress: onKeyPress
+    onChange: onChange
   };
 
   return (
@@ -117,20 +111,15 @@ const renderInputComponent = inputProps => (
 const StyledAutoSuggest = styled.div`
   .react-autosuggest__input {
     margin-left: 32px;
-    width: 80%;
-    height: 18px;
-    padding: 20px 20px 20px 45px;
-    background: #eee;
-    border: 1px solid rgba(255, 255, 255, 0);
+    width: 90%;
+    height: 12px;
+    padding: 20px 20px 20px 20px;
+    background-color: white;
+    border: 1px solid #d1d1d1;
     font-size: 16px;
     outline: none;
     color: rgb(94, 94, 94);
     border-radius: 3px;
-  }
-
-  .react-autosuggest__input:focus {
-    background-color: white;
-    border: 1px solid #d1d1d1;
   }
 
   .react-autosuggest__suggestions-container--open {
@@ -169,7 +158,7 @@ const StyledAutoSuggest = styled.div`
     color: rgb(94, 94, 94);
     position: absolute;
     top: 12px;
-    left: 48px;
+    right: 5px;
     width: 16px;
     height: 16px;
   }

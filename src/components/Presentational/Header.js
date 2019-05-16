@@ -6,16 +6,20 @@ import styled from "styled-components";
 import {
   PrimaryColor,
   SecondaryColor,
-  AccentColor
+  AccentColor,
+  TertiaryColor
 } from "../../helpers/Theming";
-
+import { IoIosFilm } from "react-icons/io";
 const Header = () => {
   return (
     <HeaderWrapper>
       <HeaderContainer>
         <HeaderItem>
           <HeaderLogo exact={true} to="/latest">
-            Made with TMDB
+            <span>
+              <IoIosFilm />
+            </span>
+            TMDB Movies
           </HeaderLogo>
         </HeaderItem>
         <HeaderItemMiddle>
@@ -23,10 +27,11 @@ const Header = () => {
         </HeaderItemMiddle>
 
         <HeaderItemRight>
-          <HeaderNav to="/top">TOP RATED</HeaderNav>
-          <HeaderNav to="/popular">POPULAR</HeaderNav>
-          <HeaderNav to="/upcoming">UPCOMING</HeaderNav>
-          <HeaderNav to="/filter">FILTER</HeaderNav>
+          <HeaderNav to="/latest">Latest</HeaderNav>
+          <HeaderNav to="/top">Top rated</HeaderNav>
+          <HeaderNav to="/popular">Popular</HeaderNav>
+          <HeaderNav to="/upcoming">Upcoming</HeaderNav>
+          <HeaderNav to="/filter">Filter</HeaderNav>
         </HeaderItemRight>
       </HeaderContainer>
     </HeaderWrapper>
@@ -36,13 +41,14 @@ const Header = () => {
 const HeaderWrapper = styled.div`
   height: 70px;
   background-color: ${PrimaryColor};
+
   justify-content: center;
   display: flex;
   position: fixed;
   width: 100%;
   top: 0;
   z-index: 5;
-  font-size: 14px;
+  font-size: 16px;
 `;
 const HeaderContainer = styled.header`
   display: flex;
@@ -74,7 +80,7 @@ const HeaderItemMiddle = styled(HeaderItem)`
 const HeaderNav = styled(NavLink)`
   margin-left: 30px;
   color: ${SecondaryColor};
-
+  text-transform: uppercase;
   &.active {
     color: ${AccentColor};
   }
@@ -97,14 +103,16 @@ const HeaderNav = styled(NavLink)`
   }
 `;
 const HeaderLogo = styled(Link)`
-  font-size: 27px;
+  font-size: 29px;
   font-weight: bold;
-  background: ${AccentColor};
+
   padding: 5px;
-  color: ${PrimaryColor};
-  :hover {
-    transform: scale(1.1);
-    color: ${PrimaryColor};
+  color: ${TertiaryColor};
+
+  span {
+    svg {
+      padding: 4px 2px 0px 2px;
+    }
   }
   transition: all 0.5s;
   @media (max-width: 480px) {

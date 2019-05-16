@@ -1,4 +1,4 @@
-import { SecondaryColor } from "../../../helpers/Theming";
+import { SecondaryColor, AccentColor } from "../../../helpers/Theming";
 import styled from "styled-components";
 
 const BigHeading = styled.div`
@@ -12,6 +12,11 @@ const BigHeading = styled.div`
     font-weight: normal;
     font-size: 20px;
     color: ${SecondaryColor};
+    padding: 10px;
+    border-radius: 20px;
+    border: 1.5px solid ${AccentColor};
+    min-width: 100px;
+    text-align: center;
   }
 `;
 export default BigHeading;

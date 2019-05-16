@@ -7,15 +7,15 @@ import reducers from "./reducers";
 import * as serviceWorker from "./serviceWorker";
 import App from "./components/Container/App";
 
-import { BrowserRouter } from "react-router-dom";
+import { HashRouter } from "react-router-dom";
 const AppStore = createStore(reducers, applyMiddleware(thunk));
 serviceWorker.register();
 
 const MovieApp = () => {
   return (
-    <BrowserRouter>
+    <HashRouter>
       <App />
-    </BrowserRouter>
+    </HashRouter>
   );
 };
 ReactDOM.render(

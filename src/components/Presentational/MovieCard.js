@@ -1,15 +1,11 @@
 import React from "react";
-import Genres from "../../helpers/Genres";
+import formatGenres from "../../helpers/formatGenres";
 import styled from "styled-components";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
 import { MdStar } from "react-icons/md";
 import MovieCardPlaceHolder from "./Placeholders/MovieCardPlaceHolder";
-import {
-  QuaternaryColor,
-  SecondaryColor,
-  AccentColor
-} from "../../helpers/Theming";
+import { SecondaryColor, AccentColor } from "../../helpers/Theming";
 
 const MovieCard = ({ movie }) => {
   return (
@@ -26,27 +22,30 @@ const MovieCard = ({ movie }) => {
           placeholder={<MovieCardPlaceHolder />}
         />
       </MovieImageWrapper>
-      <MovieOverview>{movie.overview}</MovieOverview>
+      <MovieOverview>
+        {movie.overview.length > 300
+          ? movie.overview.slice(0, 300) + " ..."
+          : movie.overview}
+      </MovieOverview>
 
       <MovieInfoWrapper>
         <MovieInfo>
+          <MovieParagraph>{formatGenres(movie.genre_ids)}</MovieParagraph>
           <MovieTitle>{movie.title}</MovieTitle>
-          <MovieParagraph>
-            {movie.release_date ? movie.release_date.slice(0, 4) : null}
-          </MovieParagraph>
+          <MovieInfoExtra>
+            <MovieParagraph>
+              {movie.release_date ? movie.release_date.slice(0, 4) : null}
+            </MovieParagraph>
+            <MovieInfoExtra>
+              <MovieParagraph>{movie.vote_average}</MovieParagraph>
+              <IconWrapper>
+                <MdStar />
+              </IconWrapper>
+            </MovieInfoExtra>
+          </MovieInfoExtra>
         </MovieInfo>
         <MovieInfo>
-          <MovieParagraph>
-            {movie.genre_ids.slice(0, 3).map(genre => {
-              return Genres.get(genre) + " ";
-            })}
-          </MovieParagraph>
-          <MovieInfo>
-            <IconWrapper>
-              <MdStar />
-            </IconWrapper>
-            <MovieParagraph>{movie.vote_average}</MovieParagraph>
-          </MovieInfo>
+          <MovieInfo />
         </MovieInfo>
       </MovieInfoWrapper>
     </MovieCardsItem>
@@ -54,12 +53,11 @@ const MovieCard = ({ movie }) => {
 };
 
 const MovieImageWrapper = styled.div`
-  background-color: #f3f3f3;
-
-  background-color: ${QuaternaryColor};
   img {
     height: auto;
-    width: 260px;
+    width: 240px;
+    border-radius: 15px;
+    margin-bottom: 2px;
   }
 `;
 const MovieOverview = styled.div`
@@ -75,11 +73,11 @@ const MovieCardsItem = styled.div`
   display: flex;
   flex-direction: column;
   position: relative;
-  margin: 16px;
-  width: 260px;
+  margin: 4px 16px 4px 16px;
+  width: 240px;
   min-height: 450px;
   max-height: 500px;
-  background-color: ${QuaternaryColor};
+
   transition: all 0.5s;
 
   :hover img {
@@ -90,21 +88,22 @@ const MovieCardsItem = styled.div`
     opacity: 1;
   }
 `;
-const MovieInfoWrapper = styled.div`
-  margin: 5px;
-`;
+const MovieInfoWrapper = styled.div``;
 const MovieInfo = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+const MovieInfoExtra = styled.div`
   display: flex;
   justify-content: space-between;
 `;
-
 const MovieParagraph = styled.p`
   font-size: 14px;
-  padding: 5px;
+  padding: 0px 5px 0px 5px;
   color: ${SecondaryColor};
 `;
 const IconWrapper = styled.span`
-  font-size: 16px;
+  font-size: 15px;
   color: ${AccentColor};
 `;
 const MovieTitle = styled.h2`

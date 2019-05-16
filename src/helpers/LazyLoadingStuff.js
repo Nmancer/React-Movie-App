@@ -1,6 +1,4 @@
 import Loadable from "react-loadable";
-// import React from "react";
-// import Loader from "../components/Presentational/Loader";
 
 function Loading({ error }) {
   if (error) {

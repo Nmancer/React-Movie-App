@@ -13,8 +13,10 @@ import {
   SearchPage,
   ActorDetails
 } from "../../helpers/LazyLoadingStuff";
+
 import { Global } from "../../helpers/Global";
 import Header from "../Presentational/Header";
+
 const initialMode = localStorage.getItem("mode") === "true";
 const initialAccent = localStorage.getItem("accent") || "red";
 
@@ -32,7 +34,7 @@ const App = props => {
   };
 
   const { location } = props;
-
+  console.log(location);
   return (
     <ThemeProvider
       theme={{
@@ -83,16 +85,7 @@ const App = props => {
                   <Route path="/filter" component={SearchPage} />
                   <Route path="/movies/:id" component={MovieDetails} />
                   <Route path="/actors/:id" component={ActorDetails} />
-                  <Route
-                    path="/search"
-                    render={props => (
-                      <CurrentMovies
-                        {...props}
-                        movies={props.foundMovies}
-                        page="Found"
-                      />
-                    )}
-                  />
+
                   <Route component={CurrentMovies} />
                 </Switch>
               </section>
@@ -108,7 +101,9 @@ const mapStateToProps = state => {
   return { foundMovies: state.searchResults };
 };
 
-export default connect(
-  mapStateToProps,
-  { fetchCurrentMovies }
-)(withRouter(App));
+export default withRouter(
+  connect(
+    mapStateToProps,
+    { fetchCurrentMovies }
+  )(App)
+);
